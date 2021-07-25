@@ -1,4 +1,5 @@
 using Elastic.Apm.AspNetCore;
+using Elastic.Apm.DiagnosticSource;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -30,7 +31,9 @@ namespace Service1.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseElasticApm(Configuration);
+            app.UseElasticApm(
+                Configuration,
+                new HttpDiagnosticsSubscriber());
             
             if (env.IsDevelopment())
             {

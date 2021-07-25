@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Elastic.Apm.AspNetCore;
+using Elastic.Apm.DiagnosticSource;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -44,7 +45,9 @@ namespace Service2.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Service2.Api v1"));
             }
 
-            app.UseElasticApm(Configuration);
+            app.UseElasticApm(
+                Configuration,
+                new HttpDiagnosticsSubscriber());
 
             app.UseRouting();
 
